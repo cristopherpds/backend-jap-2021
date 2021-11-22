@@ -1,21 +1,17 @@
 const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const path = require('path');
 
-const port = 3001;
+const port = 3000 || 3001;
 
 const app = express();
 
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
   extended: true,
 }));
 app.use(cors());
-app.use(bodyParser.json());
-app.use(express.json());
-
-
 
 /*GET*/
 app.get('/products', (req, res, next) => {
@@ -57,11 +53,11 @@ app.get('/buy', (req, res) => {
 
 
 /*POST*/
-app.post('/buy',(req, res)=>{
-  fs.writeFileSync(path.join(__dirname,'./logs/log.txt'), JSON.stringify(req.body));
+app.post('/buy', (req, res) => {
+  fs.writeFileSync(path.join(__dirname, './logs/log.txt'), JSON.stringify(req.body));
 
-  let msj={
-    dato: 'Compra efectuada con exito',
+  let msj = {
+    dato: 'Log generado',
   }
 
   res.send(JSON.stringify(msj));
